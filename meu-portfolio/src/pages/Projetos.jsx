@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import Navbar from "../components/Navbar";
 function Projetos() {
   const [projetos, setProjetos] = useState([
     {
@@ -23,6 +23,10 @@ function Projetos() {
 
   const [busca, setBusca] = useState("");
 
+  function handleBuscaChange(novoValor) {
+    console.log(novoValor);
+  }
+
   return (
     <div className="p-8 text-center">
       <h1 className="text-2xl font-bold mb-4">Meus Projetos 🚀</h1>
@@ -38,6 +42,7 @@ function Projetos() {
           ))}
         </li>
       </ul>
+      <Navbar onBuscaChange={handleBuscaChange} />
     </div>
   );
 }
