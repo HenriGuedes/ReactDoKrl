@@ -24,8 +24,10 @@ function Projetos() {
   const [busca, setBusca] = useState("");
 
   function handleBuscaChange(novoValor) {
-    console.log(novoValor);
+    setBusca(novoValor)
   }
+
+  const filtro =  projetos.filter((projetosf)=>{return projetosf.Nome.toLowerCase().includes(busca.toLowerCase())})//includes está servindo para analisar se oq foi digitado está batendo com o nome do projeto 
 
   return (
     <div className="p-8 text-center">
@@ -33,13 +35,15 @@ function Projetos() {
       <p>Aqui vai aparecer a lista de projetos.</p>
       <ul>
         <li>
-          {projetos.map((projects) => (
+          {filtro.length === 0 ? (  <p>Não encontrado</p> // Se o filtro estiver vazio
+          ) :(// Caso contrário, exibe os projetos que passaram no filtro
+            filtro.map((projects) => (
             <>
               <h1>{projects.Nome}</h1>
               <p>{projects.Descrição}</p>
               <a href={projects.Link}>Link do projeto</a>
             </>
-          ))}
+          )))}
         </li>
       </ul>
       <Navbar onBuscaChange={handleBuscaChange} />
