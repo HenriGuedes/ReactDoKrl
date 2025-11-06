@@ -1,36 +1,47 @@
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function Navbar(props) {
-  console.log(props);
+function Navbar({ busca, setBusca }) {
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
+    setBusca(event.target.value);
+    navigate("/projetos"); // redireciona pra página de projetos ao digitar
+  };
+
   return (
-    <div>
-      <nav className="bg-blue-100  fixed top-0 w-full h-25 flex flex-row gap-4 pt-12 ">
-        <Link
-          to="/projetos"
-          className="bg-blue-300 rounded w-30 h-8 text-center p-1  ml-30"
-        >
-          projeto
-        </Link>
-        <Link
-          to="/contato"
-          className="bg-blue-300 rounded w-30 h-8 text-center p-1 "
-        >
-          Contato
-        </Link>
-        <Link to="/" className="bg-blue-300 rounded w-30 h-8 text-center p-1 ">
-          Home
-        </Link>
+    <nav className="fixed top-0 w-full bg-slate-900 text-white shadow-md z-50">
+      <div className="flex justify-between items-center px-8 py-4">
+        {/* título simples do site */}
+        <h1 className="text-xl font-bold text-blue-400 tracking-wide">
+          Henrique.dev
+        </h1>
 
-        <div className=" fixed top-0   absolute, right-0 pt-13">
-          <label className="mr-4"> pesqueisa</label>
+        {/* links de navegação */}
+        <div className="flex gap-6 text-2xl font-medium">
+          <Link to="/" className="hover:text-blue-400 transition">
+            Home
+          </Link>
+          <Link to="/projetos" className="hover:text-blue-400 transition">
+            Projetos
+          </Link>
+          <Link to="/contato" className="hover:text-blue-400 transition">
+            Contato
+          </Link>
+        </div>
+
+        {/* barra de pesquisa */}
+        <div className="hidden md:flex items-center bg-slate-800 rounded-md px-2 py-1">
           <input
             type="text"
-            className="bg-amber-800 w-48 h-6 rounded mr-40 "
-            onChange={(event) => props.onBuscaChange(event.target.value)}
+            value={busca}
+            onChange={handleChange}
+            placeholder="Buscar projetos..."
+            className="bg-transparent text-white focus:outline-none placeholder-gray-400 w-40"
           />
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 }
 
